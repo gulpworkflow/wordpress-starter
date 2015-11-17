@@ -3,7 +3,7 @@
 # 1) Project Details
 #
 # =======
-projectName: "global-docs"                          # For WordPress projects, this will be the theme name
+projectName: "hello-world"                          # For WordPress projects, this will be the theme name
 GAcode: null                                        # Google Analytics code eg -"UA-66481277-1"
 #
 # ===========================================================================================================================
