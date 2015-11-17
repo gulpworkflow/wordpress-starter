@@ -1,0 +1,120 @@
+{
+    "logo_url": "/wp-content/uploads/2015/10/global_docs-mark_only-RGB.png",
+    "message" : "Where do you want to start?",
+    "bricks" : [
+        {
+            "label"     :   "Edit Home Page",
+            "icon"      :   "fa-home",
+            "links"     :   [
+                {
+                    "label" :   "Header",
+                    "url"   :   "/wp-admin/post.php?post=15&action=edit"
+                },
+                {
+                    "label" :   "Services",
+                    "url"   :   "/wp-admin/post.php?post=6&action=edit"
+                },
+                {
+                    "label" :   "About",
+                    "url"   :   "/wp-admin/post.php?post=4&action=edit"
+                },
+                {
+                    "label" :   "FAQ",
+                    "url"   :   "/wp-admin/post.php?post=9&action=edit"
+                },
+                {
+                    "label" :   "Team",
+                    "url"   :   "/wp-admin/post.php?post=11&action=edit"
+                },
+                {
+                    "label" :   "Updates",
+                    "url"   :   "/wp-admin/post.php?post=13&action=edit"
+                }
+            ]
+        },
+        {
+            "label"     :   "Site-Wide",
+            "icon"      :   "fa-sitemap",
+            "links" :   [
+                {
+                    "label" :   "Main Navigation",
+                    "url"   :   "/wp-admin/nav-menus.php"
+                },
+                {
+                    "label" :   "Footer (edit locations)",
+                    "url"   :   "/post.php?post=24&action=edit"
+                },
+                 {
+                    "label" :   "General Settings",
+                    "url"   :   "/wp-admin/options-general.php"
+                }
+            ]
+        },
+        {
+            "label"     :   "'Get Started'",
+            "icon"      :   "fa-share-square",
+             "links" :   [
+                {
+                    "label" :   "Edit content",
+                    "url"   :   "/wp-admin/post.php?post=27&action=edit"
+                },
+                {
+                    "label" :   "Change Availability",
+                    "url"   :   "/post.php?post=24&action=edit"
+                }
+            ]
+        },
+        {
+            "label"     :   "'Submit Inquiry' form",
+            "icon"      :   "fa-check-square-o",
+            "links"     :   [
+                 {
+                    "label" :   "Edit form",
+                    "url"   :   "/wp-admin/admin.php?page=gf_edit_forms&id=1"
+                },
+                {
+                    "label" :   "Form settings",
+                    "url"   :   "/wp-admin/admin.php?page=gf_edit_forms&view=settings&id=1"
+                },
+                {
+                    "label" :   "View entries",
+                    "url"   :   "/wp-admin/admin.php?page=gf_entries&id=1"
+                }
+            ]
+        },
+        {
+            "label"     :   "Document Types",
+            "icon"      :   "fa-file-text-o",
+            "links"     :   [
+                {
+                    "label" :   "All Document Types",
+                    "url"   :   "/wp-admin/edit.php?post_type=document-type"
+                },
+                {
+                    "label" :   "New Document Type",
+                    "url"   :   "/wp-admin/post-new.php?post_type=document-type"
+                }
+            ]
+        },
+        {
+            "label"     :   "Help Center",
+            "icon"      :   "fa-question-circle",
+            "links"     :   [
+                {
+                    "label" :   "All Questions",
+                    "url"   :   "/wp-admin/edit.php?post_type=question"
+                },
+                {
+                    "label" :   "New Question",
+                    "url"   :   "/wp-admin/post-new.php?post_type=question"
+                },
+                {
+                    "label" :   "Help Categories",
+                    "url"   :   "/edit-tags.php?taxonomy=help-category&post_type=question"
+                }
+
+            ]
+        }
+    ]
+
+}
