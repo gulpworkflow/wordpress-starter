@@ -118,6 +118,10 @@ rm -rf $STARTER_BASE_NAME
 cd ../
 # Remove Original Gulp Workflow ZIP
 rm -rf $PROJECT_NAME.zip
+# Rename Project in config file and remove the sample
+cd $PROJECT_NAME/src
+sed "/projectName/ s/hello-world/$PROJECT_NAME/" config-sample.yml > config.yml
+rm -rf config-sample.yml
 # Now everything is nice & clean
 
 ###########################################################
