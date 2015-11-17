@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-# STATIC SITE STARTER
+# WORDPRESS STARTER
 # -------------------
-# This script allows you to create a new site utilizing the ripe gulp workflow
+# This script allows you to create a new WordPress site utilizing the ripe gulp workflow
 # 
 #
 # The scripts executes the following actions:
