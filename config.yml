@@ -1,0 +1,344 @@
+# ===========================================================================================================================
+#
+# 1) Project Details
+#
+# =======
+projectName: "global-docs"                          # For WordPress projects, this will be the theme name
+GAcode: null                                        # Google Analytics code eg -"UA-66481277-1"
+#
+# ===========================================================================================================================
+#
+# 2) Build (task order)
+#
+# ---
+# When you run the default task, the following tasks are executed (in order) before we begin watching
+# Tasks grouped are run in parallel.  Tasks separated by comma are run in sequence
+# Eg:
+# ['a', 'b'], 'c'
+#  1. run 'a', 'b' in parallel;
+#  2. run 'c' after 'a' and 'b'
+#
+default_build_order:
+ - 'clean'
+ - 'images:move'
+ - ['iconFont', 'favicon:move','fonts']
+ - compileTemplates
+ - ['jspm_lib', 'sass']
+ - 'watchFiles'
+ - 'browserSync'
+ - 'watch'
+# ===========================================================================================================================
+#
+# 3) Production
+#
+# ---
+
+# ===========================================================================================================================
+#
+# 4) Task config
+#
+# ---
+# These are project file tasks.  Workflow tasks are handled separately.
+#
+# This build system includes: (sorted alphabetically)
+#     - browserSync      : serve static files to browser, proxy another server for live reload, sync across devices
+#     - compileTemplates : generate HTML from a template engine using real data (supports: Jade, Twig, Nunjucks)
+#     - favicon          : generates favicon/associated html based on raw png
+#     - fonts            : pull together web font css into a partial and insert into sass project
+#     - jspm_bundle      : moves your project's js lib into appropriate build folder based on JSPM config
+#     - jspm_lib         : moves your project's js lib into appropriate build folder based on JSPM config
+#     - iconFont         : takes a folder of SVGS and generates a font + sass partial then inserts into your sass project
+#     - images           : minifies web images, stores both the original and minified versions
+#     - sass             : processes sass into project CSS (autoprefix, bulk import components, etc)
+#     - watchFiles       : watch an arbitrary set of files for changes, optionally concatenate them
+tasks:
+  # ==========================================================================================================================
+  #
+  # BrowserSync
+  # -----------
+  # Build your project efficiently! You can live-reload as you make changes, and view your project across devices synchronously!
+  # http://www.browsersync.io/
+  browserSync:
+    enable_task: true                                 # Turn this task on/off at will!
+    # ---
+    # http://www.browsersync.io/docs/options/
+    options:
+     proxy: "globaldocs.dev"
+     notify: false
+     open: "external"
+     logPrefix: "global-docs"
+   # server: # This is for static
+   #   baseDir: "build"                                # Base directory of web files you wanted to serve in browser
+   #   index: "globaldocs.dev"                              # What is the index file?
+    # ---
+    watch_task:
+      enable: false                                   # Should a watch task be created?
+      src: null                                       # If so, what's the source (most likely same as task src)
+  #
+  # ==========================================================================================================================
+  #
+  # Compile templates
+  # -----------------
+  # Use a template engine to write your markup, and this task will turn into HTML!  Supports use of gulp-data, which allows you
+  # to create data objects to fill in your templates' content.
+  # Great for static sites or HTML prototypes!
+  compileTemplates:
+    enable_task: false                               # Turn this task on/off at will!
+    # ---
+    template_engine: "twig" #" jade" "nunjucks"
+    # ---
+    src: "./src/templates/*.twig"                        # jade pulls these files when compiling html
+    dest: "./src/html"                              # destination of compiled html
+    # ---
+    clean: false                                    # Any task-related files you watched removed prior to build?
+    # ---
+    data_folderName: "data"                         # where the data lives, relative to templates.  Set to false to skip data
+    # ---
+    watch_task:
+      enable: true                                  # Should a watch task be created?
+      src: "./src/templates/*.twig"                      # If so, what's the source (most likely same as task src)
+  #
+  # ==========================================================================================================================
+  #
+  # Generate Favicons for any modern web app
+  # (NOT DONE YET)
+  #
+  # =======
+  favicon:
+    enable_task: true                                 # Turn this task on/off at will!
+    # ---
+    src: "./src/favicon/favicon_raw@260x260.png"      # Path(s) for file to produce the favicons. Image should be min 260x260!!
+    dest: "./src/favicon/output"                      # Path for writing the favicons to
+    # ---
+    clean: false                                       # favicons are built into img folder, so that task cleans out favicons
+    # ---
+    html: "./src/favicon/"                            # Path(s) for HTML file to write or append metadata
+    iconsPath: "../build/img/favicons"                # Path for overriding default icons path
+    # ---
+    watch_task:
+      enable: false                                   # Should a watch task be created?
+      src: null                                       # If so, what's the source (most likely same as task src)
+  #
+  # ==========================================================================================================================
+  #
+  # Takes web fonts and creates a scss partial for font-face
+  #
+  # =======
+  fonts:
+    enable_task: true                                # Turn this task on/off at will!
+    # ---
+    watch_task:
+      enable: true
+      src:
+        - ./src/fonts/**/*.woff2
+        - ./src/fonts/**/*.woff
+        - ./src/fonts/**/*.eot
+        - ./src/fonts/**/*.ttf
+        - ./src/fonts/**/*.svg
+        - ./src/fonts/**/*.css
+    # ---
+    clean:
+      - './src/scss/03-base/_fonts.scss'
+      - './build/fonts'
+    # --
+    stylesheets:
+      src: './src/fonts/**/*.css'
+      fontLocation: '../fonts'
+      outputFile: '_fonts.scss'
+      outputPath: './src/scss/03-base/'
+    # ---
+    fontFiles:
+      src:
+        - ./src/fonts/**/*.woff2
+        - ./src/fonts/**/*.woff
+        - ./src/fonts/**/*.eot
+        - ./src/fonts/**/*.ttf
+        - ./src/fonts/**/*.svg
+      dest: "./build/fonts"
+  #
+  # ==========================================================================================================================
+  #
+  # JSPM
+  # -------
+  # Javascript Package Manager (JSPM), is an awesome modern tool for installing Javascript modules, tra
+  #
+  # -------------------------------------------------------------------------------------------------------------------------
+  # Budle Javascript Modules for browser
+  jspm_bundle:
+    enable_task: false                                 # Turn this task on/off at will!
+    # ---
+    packages:
+      src:
+        - "./build/js/jspm_packages/*.js"
+        - "./build/js/jspm_packages/*.js.map"
+      changed: "./build/js/jspm_packages"
+    config: "./build/js/config.js"
+    dest: './dist/js/bundle.js'
+    # ---
+    clean: false                                      # These are deleted & re-generated every time you run "gulp"
+    # ---
+    watch_task:
+      enable: false                                    # Should a watch task be created?
+  # -------------------------------------------------------------------------------------------------------------------------
+  # Watch you lib for changes
+  jspm_lib:
+    enable_task: true                                 # Turn this task on/off at will!
+    # ---
+    src: "./src/js/*.js"
+    dest:
+      build: "./build/js/lib"
+      dist: "./dist/js"
+    # ---
+    clean: "./build/js/lib/*.js"                      # These are deleted & re-generated every time you run "gulp"
+    # ---
+    watch_task:
+      enable: true                                    # Should a watch task be created?
+      src: "./src/js/*.js"                            # If so, what's the source (most likely same as task src)
+  #
+  # ==========================================================================================================================
+  #
+  # Generate Icon Font from SVGs
+  #
+  # =======
+  iconFont:
+    enable_task: true                                # Turn this task on/off at will!
+    # ---
+    src: "./src/icons/*.svg"                          # Path of the raw icons (as SVG)
+    base: "./src"                                     # Set the base of "icons" folder. Without it, the template goes to weird places (cant leave src)
+                                                        #
+    fontDest: "build/fonts/icons"                     # This is where the icon-font gulp pipe spits the webfont files
+    # ---
+    clean:                                            # These are deleted & re-generated every time you run "gulp"
+      - './build/fonts/icons'
+      - './src/scss/03-base/_icons.scss'
+    # ---
+    sassOutput: "../../../src/scss/03-base/_icons.scss"  # The path where the (S)CSS file should be saved, relative to the font destination (fontDest)
+    fontPath: "../fonts/icons/"                           # Path of fonts, relative to CSS (not scss) (eg, this is where @font-face points)
+    className: "icon"                                    # Basis of the icons' class in CSS
+    template: "gulp/util/_iconFont-template.scss"     # The template path for generating the stylesheet (we use scss)
+    # ---
+    watch_task:
+      enable: true                                    # Should a watch task be created?
+      src: "./src/icons/*.svg"                            # If so, what's the source (most likely same as task src)
+  #
+  # ==========================================================================================================================
+  #
+  # Optimize PNG, JPEG, GIF and SVG for web
+  #
+  # =======
+  images:
+    enable_task: true                                 # Turn this task on/off at will!
+    # ---
+    src: "./src/img/original/**"                       # Path where you will drop images
+    dest:
+      src: "./src/img/minified"                               # Path for images after minification (on change)
+      build: "./build/img"
+    #---
+    clean: "./build/img"                           # These are deleted & re-generated every time you run "gulp"
+    #---
+    watch_task:
+      enable: true                                    # Should a watch task be created?
+      src: "./src/img/original/**"                    # If so, what's the source (most likely same as task src)
+  #
+  # ==========================================================================================================================
+  #=
+  # SASS/SCSS for stylesheets
+  #
+  # =======
+  sass:
+    enable_task: true                                 # Turn this task on/off at will!
+    # ---
+    src: "./src/scss/*.scss"                          # Source path(s) for the gulp-sass pipe
+    dest: "./build/css"                               # Path to write compiled CSS
+    # ---
+    clean: "./build/css/"                             # Which file(s) should be deleted each time before gulp runs?
+    # ---
+    autoprefix_browsers: ['last 2 version', 'ie 9']   # Browser settings based on gulp-autoprefixer config
+    settings:                                         # settings for gulp-sass
+      indentedSyntax: false                           # Set to true if you want to use sass indented syntax
+      errLogToConsole: errLogToConsole                #
+    # ---
+    watch_task:
+      enable: true                                    # Should a watch task be created?
+      src:
+        - "./src/scss/*.scss"                        # If so, what's the source (most likely same as task src)
+        - "./src/scss/**/*.scss"
+  #
+  # ==========================================================================================================================
+  #
+  # Watch Files
+  # -----------
+  # Define arbitrary file sets below that will be watched and moved into the build.  Optionally concatenate
+  # Useful for bundling ES5 javascript, moving content, system-specific files for WordPress or Jeykll, HTML, etc
+  # Helps keep your source files very need and organized
+  #
+  # NOTE: This is NOT the workflow "watch" task, it only defines arbitrary files that *should* be watched
+  watchFiles:
+    # -------------------------------------------------------------------------------------------------------------------------
+    # PHP - WordPress (WP) templates
+    # ---------
+    favicons:
+      enable_task: true                                 # Turn this task on/off at will!
+      # ---
+      concat: false
+      # ---
+      src: "./src/favicons/generated/*"                          # Path for HTML
+      dest: "./build/favicons"                                   # Where should HTML go?
+      #---
+      clean: "./build/favicons"                           # These are deleted & re-generated every time you run "gulp"
+    # -------------------------------------------------------------------------------------------------------------------------
+    # PHP - WordPress (WP) templates
+    # ---------
+    php:
+      enable_task: true                                 # Turn this task on/off at will!
+      # ---
+      concat: false
+      # ---
+      src: "./src/php/*.php"                          # Path for HTML
+      dest: "./build/"                                   # Where should HTML go?
+      #---
+      clean: "./build/*.php"                           # These are deleted & re-generated every time you run "gulp"
+    #
+    # -------------------------------------------------------------------------------------------------------------------------
+    #  WP Views - Templates (Twig for timber)
+    # ---------
+    wp_views:
+      enable_task: true                                 # Turn this task on/off at will!
+      # ---
+      concat: false
+      # ---
+      src: "./src/templates/*.twig"      # Path(s) for file to produce the favicons. Image should be min 260x260!!
+      dest: "./build/templates"                      # Path for writing the favicons to
+      # ---
+      clean: "./build/templates"                                       # favicons are built into img folder, so that task cleans out favicons
+    #
+    # -------------------------------------------------------------------------------------------------------------------------
+    # WP Functions - concat into 1 php file
+    # ---------
+    wp_functions:
+      enable_task: true                                 # Turn this task on/off at will!
+      # ---
+      concat: false
+      # ---
+      src:
+       - "./src/wp-functions/*.php"      # Path(s) for file to produce the favicons. Image should be min 260x260!!
+       - "./src/wp-fuctions/**/*.php"
+      dest: "./build/includes"                      # Path for writing the favicons to
+      # ---
+      clean: "./build/includes"                                       # favicons are built into img folder, so that task cleans out favicons
+    #
+    # -------------------------------------------------------------------------------------------------------------------------
+    # WP Meta - style.css + screenshot
+    # ---------
+    wp_meta:
+      enable_task: true                                 # Turn this task on/off at will!
+      # ---
+      concat: false
+      # ---
+      src: "./src/wp-meta/*"      # Path(s) for file to produce the favicons. Image should be min 260x260!!
+      dest: "./build/"                      # Path for writing the favicons to
+      # ---
+      clean:
+        - "build/screenshot.png"
+        - "build/style.css"
+        - "build/zoneboard.json"
