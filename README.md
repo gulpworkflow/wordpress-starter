@@ -1,4 +1,4 @@
-# WordPress source for [Gulp Workflow](#)
+# WordPress source for [Gulp Workflow](https://github.com/ripe-gulp-workflow/gulp-workflow)
 
 1. Create local virtual host
 2. Set up local MySQL database
@@ -22,7 +22,7 @@ To install a new static site run the install script command followed by the name
 *Note replace [project-name] with the name of your project*
 
 ```
-bash <(curl -s https://raw.githubusercontent.com/ripestudios/src--wordpress/master/install.bash) [project name]
+bash <(curl -s https://raw.githubusercontent.com/ripe-gulp-workflow/src--wordpress/master/install.bash) [project name]
 ```
 
 ##### Step 2—Install Node Modules
