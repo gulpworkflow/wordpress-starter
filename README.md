@@ -3,10 +3,12 @@
 1. Create local virtual host
 2. Set up local MySQL database
 2. Download WordPress core (wp core download)
-4. Install plugins 
+4. Install any plugins 
 5. Pull in any uploads
-6. cd to wp-content/themes
-7. See step 1 below
+6. cd to wp-content
+7. Pull in this repo as "themes" folder
+8. Run `npm install`
+9. 
 
 ## Installing a new project
 ##### Step 0—Navigate to where you would like your project to be located
