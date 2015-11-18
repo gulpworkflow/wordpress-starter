@@ -1,4 +1,4 @@
-# Ripe WordPress Starter
+# WordPress source for (Gulp Workflow)[#]
 
 1. Create local virtual host
 2. Set up local MySQL database
