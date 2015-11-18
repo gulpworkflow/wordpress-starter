@@ -1,4 +1,4 @@
-# WordPress source for (Gulp Workflow)[#]
+# WordPress source for [Gulp Workflow](#)
 
 1. Create local virtual host
 2. Set up local MySQL database
