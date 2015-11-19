@@ -1,4 +1,4 @@
-# WordPress source for [Gulp Workflow](https://github.com/ripe-gulp-workflow/gulp-workflow)
+# WordPress source for [Gulp Workflow](https://github.com/gulpworkflow/core)
 
 1. Create local virtual host
 2. Set up local MySQL database
