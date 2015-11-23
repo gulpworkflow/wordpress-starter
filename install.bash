@@ -24,7 +24,7 @@ CURRENT_PROJECTS=`ls -l`                                                        
 
 # Gulp Workflow Variables
 GULP_WORKFLOW_URL="https://github.com/gulpworkflow/core/archive/master.zip"  # Github URL of gulp workflow repository
-GULP_WORKFLOW_NAME="core"                                            # Name of repository
+GULP_WORKFLOW_NAME="core-master"                                            # Name of repository
 
 # Starter Base Variables
 STARTER_BASE_CLONE_URL="https://github.com/gulpworkflow/wordpress-starter.git"             # Github SSH clone URL of starter base repository
