@@ -23,12 +23,12 @@ PROJECT_NAME="$1"                                                               
 CURRENT_PROJECTS=`ls -l`                                                             # Get list of all current projects in current directory
 
 # Gulp Workflow Variables
-GULP_WORKFLOW_URL="https://github.com/ripe-gulp-workflow/gulp-workflow/archive/master.zip"  # Github URL of gulp workflow repository
-GULP_WORKFLOW_NAME="gulp-workflow-master"                                            # Name of repository
+GULP_WORKFLOW_URL="https://github.com/gulpworkflow/core/archive/master.zip"  # Github URL of gulp workflow repository
+GULP_WORKFLOW_NAME="core"                                            # Name of repository
 
 # Starter Base Variables
-STARTER_BASE_CLONE_URL="git@github.com:ripe-gulp-workflow/src--wordpress.git"             # Github SSH clone URL of starter base repository
-STARTER_BASE_NAME="src--wordpress"                                                 # Starter base repository name
+STARTER_BASE_CLONE_URL="https://github.com/gulpworkflow/wordpress-starter.git"             # Github SSH clone URL of starter base repository
+STARTER_BASE_NAME="wordpress-starter"                                                 # Starter base repository name
 
 # Formatting stuff
 bold=$(tput bold)
