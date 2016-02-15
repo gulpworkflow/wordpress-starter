@@ -194,7 +194,6 @@ done
 # Rename Project in config file and remove the sample
 echo -e "\n--> Updating config file\n"
 cd src/
-touch here.txt
 sed "/projectName/ s/hello-world/$PROJECT_NAME/" config-sample.yml > config.yml
 rm -rf config-sample.yml
 
