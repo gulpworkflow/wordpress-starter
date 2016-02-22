@@ -1,5 +1,4 @@
 <?php
-
 // Include all our functions!
 $themeDir = get_template_directory();
 foreach (glob($themeDir."/includes/*.php") as $filename) {

@@ -1,17 +1,13 @@
 <?php
-// aka http://yourwebsite.com/foobar
-// params are query parameters
-Timber::add_route('foobar', function($params){
-    // you can set a query string from paramters and pass to template:
-    //$query = 'posts_per_page=10&post_type=resources&taxonomy=subject&term='.$params['subject'];
-    Timber::load_template('index.php');
-});
+/*
+Among its other special powers, Timber implements modern routing in the Express.js/Ruby on Rails mold, making it easy
+for you to implement custom pagination--and anything else you might imagine in your wildest dreams of URLs and
+parameters. OMG so easy!
 
-// aka http://yourwebsite.com/foo/this-will-be-bar
-Timber::add_route('foo/:bar', function($params){
-    // you can set a query string from paramters and pass to template:
-    /*
-    $query = 'posts_per_page=10&post_type=resources&taxonomy=subject&term='.$params['subject'];
-    Timber::load_template('submit-inquiry.php',$query);
-    */
+https://github.com/jarednova/timber/wiki/Routes
+*/
+
+Timber::add_route('submit', function($params){
+    //$query = 'posts_per_page=10&post_type=resources&taxonomy=subject&term='.$params['subject'];
+    Timber::load_template('submit-inquiry.php');
 });

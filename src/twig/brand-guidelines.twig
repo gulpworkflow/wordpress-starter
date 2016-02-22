@@ -18,14 +18,45 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   {# Meta Data for SEO/Social Media #}
+  {% include 'meta-info.twig' %}
+
+  {# Favicons/Touch Icons
+  {% include 'favicon.twig' %} #}
+  {{function('wp_head')}}
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
       <link rel="stylesheet" href="css/ie.css">
     <![endif]-->
+
 </head>
 {% endblock %}
 
 <body class="{{body_class}}">
- <h1> Im a brand guidelines page!</h1>
+  {#
+  GLOBAL SITE HEADER
+  ------------------------#}
+  {% block header %}
+  {% include 'partials/header.twig' with {'classes': ''} %}
+  {% endblock %}
+
+  {#
+  SCREEN CONTENT
+  ------------------------#}
+  {% block content %}
+  {% endblock %}
+
+  {#
+  FOOTER
+  ------------------------#}
+  {% block footer %}
+  {% include 'partials/footer.twig' %}
+  {% endblock %}
+
+  {#
+  SCRIPTS
+  ------------------------#}
+
+  {% if isHomepage %}
+  {% endif %}
   </body>
   </html>
